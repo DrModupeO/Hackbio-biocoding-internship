@@ -1,2 +1,132 @@
 #First Group () Task on Hackbio Internship
 #Creating a data structure to organize information
+#The task is to collate the information of team members into a data structure of choice - Nested dictionary
+#Create a dictionary containing all the requested information for each team member as keys and values.
+
+Team_member1 = {
+     "Name":"Modupe Oyelade",
+     "Slack username": "Modupe",
+     "Email": "mayokun.oyelade@gmail.com",
+     "Hobby":"reading,baking,DIY",
+     "Country": "Nigeria",
+     "Discipline" : "Medicine, Public Health",
+     "Preferred programming language":"Python"
+}
+ 
+Team_member2 = {
+      "Name":"Eunice Olawale",
+     "Slack username": "Eunice",
+     "Email": "yunisolawale@gmail.com",
+     "Hobby":"studying music",
+     "Country": "Nigeria",
+     "Discipline" : "Microbiology",
+     "Preferred programming language":"Python"
+}
+    
+Team_member3 = {
+      "Name":"Oboh Jennifer",
+     "Slack username": "Justdoit_Jenny",
+     "Email": "obohaigberin@gmail.com",
+     "Hobby":"Travelling",
+     "Country": "Nigeria",
+     "Discipline" : "Cell and Genetics",
+     "Preferred programming language":"Python"
+}
+
+#Combine all individual dictionaries in a nested one
+#Give the nested dictionary a variable to house the dictionaries of all team members
+Team_dict = {"Team_member1":{
+     "Name":"Modupe Oyelade",
+     "Slack username": "Modupe",
+     "Email": "mayokun.oyelade@gmail.com",
+     "Hobby":"reading,baking,DIY",
+     "Country": "Nigeria",
+     "Discipline" : "Medicine, Public Health",
+     "Preferred programming language":"Python"
+  }, 
+    "Team_member2":{
+     "Name":"Eunice Olawale",
+     "Slack username": "Eunice",
+     "Email": "yunisolawale@gmail.com",
+     "Hobby":"studying music",
+     "Country": "Nigeria",
+     "Discipline" : "Microbiology",
+     "Preferred programming language":"Python"
+  },
+    "Team_member3":{
+      "Name":"Oboh Jennifer",
+     "Slack username": "Justdoit_Jenny",
+     "Email": "obohaigberin@gmail.com",
+     "Hobby":"Travelling",
+     "Country": "Nigeria",
+     "Discipline" : "Cell and Genetics",
+     "Preferred programming language":"Python"
+}
+}
+
+#Print the details of the team in a logical way  where \n creates a blank line before and after the separator for better readability
+print("Team Member 1: Modupe Oyelade\n")
+print(f"- Name: {Team_dict['Team_member1']['Name']}") #access the value of the key Name in the dictionary Team_member1
+print(f"- Slack username: {Team_dict['Team_member1']['Slack username']}")  #access the value of the key Slack username in the dictionary Team_member1
+print(f"- Email: {Team_dict['Team_member1']['Email']}") #access the value of the key Email in the dictionary Team_member1
+print(f"- Hobby: {Team_dict['Team_member1']['Hobby']}") #access the value of the key Hobby in the dictionary Team_member1
+print(f"- Country: {Team_dict['Team_member1']['Country']}") #access the value of the key Country in the dictionary Team_member1
+print(f"- Discipline: {Team_dict['Team_member1']['Discipline']}")  #access the value of the key Discipline in the dictionary Team_member1
+print(f"- Preferred programming language: {Team_dict['Team_member1']['Preferred programming language']}") #access the value of the key Preferred programming language in the dictionary Team_member1
+print("\n" + "\n")
+
+print("Team Member 2: Eunice Olawale\n") 
+print(f"- Name: {Team_dict['Team_member2']['Name']}")  #access the value of the key Name in the dictionary Team_member2
+print(f"- Slack username: {Team_dict['Team_member2']['Slack username']}") #access the value of the key Slack username in the dictionary Team_member2
+print(f"- Email: {Team_dict['Team_member2']['Email']}") #access the value of the key Email in the dictionary Team_member2
+print(f"- Hobby: {Team_dict['Team_member2']['Hobby']}") #access the value of the key Hobby in the dictionary Team_member2
+print(f"- Country: {Team_dict['Team_member2']['Country']}")  #access the value of the key Country in the dictionary Team_member2
+print(f"- Discipline: {Team_dict['Team_member2']['Discipline']}") #access the value of the key Discipline in the dictionary Team_member2
+print(f"- Preferred programming language: {Team_dict['Team_member2']['Preferred programming language']}") #access the value of the key Preferred programming language in the dictionary Team_member2
+print("\n" + "\n")
+
+print("Team Member 3: Oboh Jennifer\n") #access the value of the key Name in the dictionary Team_member3
+print(f"- Name: {Team_dict['Team_member3']['Name']}")  #access the value of the key Slack username in the dictionary Team_member3
+print(f"- Slack username: {Team_dict['Team_member3']['Slack username']}") #access the value of the key Email in the dictionary Team_member3
+print(f"- Email: {Team_dict['Team_member3']['Email']}")  #access the value of the key Email in the dictionary Team_member3
+print(f"- Hobby: {Team_dict['Team_member3']['Hobby']}") #access the value of the key Hobby in the dictionary Team_member3
+print(f"- Country: {Team_dict['Team_member3']['Country']}") #access the value of the key Country in the dictionary Team_member3
+print(f"- Discipline: {Team_dict['Team_member3']['Discipline']}") #access the value of the key Discipline in the dictionary Team_member3
+print(f"- Preferred programming language: {Team_dict['Team_member3']['Preferred programming language']}")  #access the value of the key Preferred programming language in the dictionary Team_member3
+
+
+####Output is Team Member 1: Modupe Oyelade
+
+- Name: Modupe Oyelade
+- Slack username: Modupe
+- Email: mayokun.oyelade@gmail.com
+- Hobby: reading,baking,DIY
+- Country: Nigeria
+- Discipline: Medicine, Public Health
+- Preferred programming language: Python
+
+
+
+Team Member 2: Eunice Olawale
+
+- Name: Eunice Olawale
+- Slack username: Eunice
+- Email: yunisolawale@gmail.com
+- Hobby: studying music
+- Country: Nigeria
+- Discipline: Microbiology
+- Preferred programming language: Python
+
+
+
+Team Member 3: Oboh Jennifer
+
+- Name: Oboh Jennifer
+- Slack username: Justdoit_Jenny
+- Email: obohaigberin@gmail.com
+- Hobby: Travelling
+- Country: Nigeria
+- Discipline: Cell and Genetics
+- Preferred programming language: Python
+​
+
