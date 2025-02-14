@@ -1,4 +1,3 @@
-The file contains the codes for the task in Stage zero for the Hackbio Internship Program for February 2025.
-The task involves creating a data structure for the members of a team ( 5 persons but in this case 3 persons)
-The details include the nmaes, emal addresses, preferred programming language, country aand discipline.
-The data structure of choic is the nested dictionary where all the details of the eam are placed into one dictionary.
+The file contains the codes for the task in the different stages for the Hackbio Internship Program for February 2025.
+For Stage 0, the task involved creating a data structure for the members of a team ( 5 persons but in this case 3 persons).The details include the nmaes, emal addresses, preferred programming language, country aand discipline. The data structure of choice was the nested dictionary where all the details of the team are placed into one dictionary.
+For Stage 1, the task was to create a function translating DNA to a protein. The function first transcribed DNA to RNA using the replace function and then translate to protein usig the Seq function from the Bio.Seq package. 
