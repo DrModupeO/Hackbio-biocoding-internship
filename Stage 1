@@ -1,0 +1,10 @@
+#Task One- Create a function that translates DNA to a protein
+!pip install Biopython  #this installs the Biopython module to enable use of Bio.Seq package and Seq
+from Bio.Seq import Seq
+def translate_dna_to_protein(DNA_seq):
+    """
+    Translates a given DNA into a protein.
+    """
+    rna_seq = dna_seq.replace("T", "U") #Convert DNA to an RNA using the replace function
+    protein = Seq(rna_seq).translate()  # Create a Seq object using the RNA and translate to protein
+    return str(protein) #returns the protein as a string
