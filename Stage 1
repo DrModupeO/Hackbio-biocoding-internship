@@ -63,5 +63,16 @@ print(df.head())
 
 #Task 3- Write a function for determining the time to reach 80% of max growth 
 
-#Task4 - Write a function to calculate the hamming distance between your slack username and yout X handle
+#Task4 - Write a function to calculate the hamming distance between your slack username and your X handle
+#Task 4- Create a function to calculate the hamming distance between your Slack Username and X handle
+Slack_str = 'modupebeautyxxx' #create a variable for slack username 
+X_str = 'samagbeyimodupe' #create a variable for X handle
+Hamming_dist = 0
+for i in range(len(Slack_str)):  # Assuming all strings are of the same length, iterate through the length of Slack_str
+    if (Slack_str[i] != X_str[i]): 
+        Hamming_dist += 1  #increase if at least one mismatch
+
+print(f"Hamming Distance is", Hamming_dist)
+
+##Output= Hamming Distance is 15.
 
