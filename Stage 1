@@ -31,39 +31,52 @@ def translate_dna_to_protein(DNA_seq):
         protein.append(amino_acid)
     return '-'.join(protein)
 
- #Task 2 - Create a function that simulates population growth
-import numpy as np
+ #Task 2 - Create a function that simulates logistic population growth
 import random
-def logistic_population_growth(max_population=1000, initial_population=10, max_duration=100):
-    "This function simulates and generates a logistic population growth curve with random lag and exponential phase durations.Returns array of time points and population values over time"
-    time = np.linspace(0, max_duration, 100) #Define time array 
-    lag_phase = random.uniform(5, 20)  #Randomize the duration of lag and exponential phases
+
+def logistic_growth_simulation(max_population=1000, initial_population=10, max_time=100, steps=200):
+    """
+    Simulates and generates a logistic population growth curve with random lag and exponential phase durations.
+    Returns list of time points and list of population values over time
+    """
+    time = [i * (max_time / steps) for i in range(steps)] #Define the array (evenly spaced points from 0 to max_time)
+    #Randomize the duration of lag and exponential phases
+    lag_phase = random.uniform(5, 20) 
     exp_phase = random.uniform(10, 50)  
-    growth_rate = np.piecewise(time, 
-                               [time < lag_phase, (time >= lag_phase) & (time < lag_phase + exp_phase), time >= lag_phase + exp_phase],
-                               [0.01, 0.2, 0.05]) # Define growth rates for different phases
-    population = np.zeros_like(time) #Compute population over time using modified logistic equation
-    for i, t in enumerate(time):
+    
+    #Define growth rates for different phases
+    growth_rate = [] #create an empty list to house the growth rate
+    for t in time:
         if t < lag_phase:
-            population[i] = initial_population # No growth during lag phase
+            growth_rate.append(0.01) 
+        elif lag_phase <= t < lag_phase + exp_phase:
+            growth_rate.append(0.2)  
         else:
-            r = growth_rate[i]
-            population[i] = max_population / (1 + (max_population/initial_population - 1) * np.exp(-r * (t - lag_phase)))
+            growth_rate.append(0.05)  #Slower growth as it reaches max capacity
+    #Compute population over time using a basic logistic equation
+    population = []
+    current_population = initial_population
+    for i, t in enumerate(time):
+        r = growth_rate[i]
+        exponent = -r * (t - lag_phase)
+        logistic_growth = max_population / (1 + ((max_population - initial_population) / initial_population) * (2.718 ** exponent))
+        population.append(logistic_growth)
     
     return time, population
 
  #Task2b- generate a dataframe with 100 different growth curves
-Generated_data= {"Time": np.linspace(0, 100, 200)}
-for i in range(1, 101):  #100 different simulations
-    population = logistic_population_growth() #ignoring the time value using the _
-    Generated_data[f"Growth_Curve_{i}"] = population
-import pandas as pd
-df = pd.DataFrame(Generated_data)
-print(df.head())
+# Generate 100 different growth curves and store them in a dictionary
+growth_curves = {}
+for i in range(1, 101):
+    time, population = logistic_growth_simulation()
+    growth_curves[f"Growth_Curve_{i}"] = population
+
+time_points = logistic_growth_simulation()[0]  # Extract time points from one simulation
+growth_curves["Time"] = time_points
 
 #Task 3- Write a function for determining the time to reach 80% of max growth 
 
-#Task4 - Write a function to calculate the hamming distance between your slack username and your X handle
+
 #Task 4- Create a function to calculate the hamming distance between your Slack Username and X handle
 Slack_str = 'modupebeautyxxx' #create a variable for slack username 
 X_str = 'samagbeyimodupe' #create a variable for X handle
