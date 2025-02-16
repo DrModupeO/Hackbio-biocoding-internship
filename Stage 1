@@ -71,11 +71,20 @@ for i in range(1, 101):
     time, population = logistic_growth_simulation()
     growth_curves[f"Growth_Curve_{i}"] = population
 
-time_points = logistic_growth_simulation()[0]  # Extract time points from one simulation
+time_points = logistic_growth_simulation()[0]  #Extract time points from one simulation
 growth_curves["Time"] = time_points
 
 #Task 3- Write a function for determining the time to reach 80% of max growth 
-
+def time_2_80%_carrying_capacity(time, population,max_population):
+    """
+    Determines the time it takes for the population to reach 80% of the carrying capacity and
+    returns the time the population reaches 80% of carrying capacity
+    """
+    target_pop = 0.8 * carrying capacity
+    for t, pop in zip(time, population):
+        if pop >= target_population:
+            return t
+    return None  #If population never reaches 80% of carrying capacity
 
 #Task 4- Create a function to calculate the hamming distance between your Slack Username and X handle
 Slack_str = 'modupebeautyxxx' #create a variable for slack username 
