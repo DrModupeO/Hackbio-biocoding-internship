@@ -63,4 +63,132 @@ Alcohol Year and Relationship Status: P-Value = nan
 
 
 
+Task 2.6 Transcriptomics
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+#Import data from the source
+data_source ="https://gist.githubusercontent.com/stephenturner/806e31fce55a8b7175af/raw/1a507c4c3f9f1baaa3a69187223ff3d3050628d4/results.txt"
+#Read the data
+df = pd.read_csv(data_source, sep = ',', header= None)
+df.head() #reads the first few columns and rows in the data
 
+##OUTPUT-
+  Gene log2FC pvalue padj
+0	DOK6 0.51 1.861e-08 0.0003053
+1	TBX5 -2.129 5.655e-08 0.0004191
+2	SLC32A1 0.9003 7.664e-08 0.0004191
+3	IFITM1 -1.687 3.735e-06 0.006809
+4	NUP93 0.3659 3.373e-06 0.006809
+
+# Create the -log10(pvalue)
+new_df['-log10(pvalue)'] = -np.log10(new_df['pvalue'])
+
+# Create a column to color code the points based on significance
+# Typically uses both p-value and fold change thresholds
+new_df['Significant'] = 'Not Significant'
+new_df.loc[(new_df['pvalue'] < 0.05) & (new_df['log2FoldChange'] > 1), 'Significant'] = 'Upregulated'
+new_df.loc[(new_df['pvalue'] < 0.05) & (new_df['log2FoldChange'] < -1), 'Significant'] = 'Downregulated'
+
+# Create the volcano plot
+plt.figure(figsize=(10, 8))
+sns.scatterplot(data=new_df, 
+                x='log2FoldChange', 
+                y='-log10(pvalue)',
+                hue='Significant',
+                palette={'Upregulated': 'red', 
+                        'Downregulated': 'blue', 
+                        'Not Significant': 'grey'},
+                alpha=0.6)
+# Add labels and title
+plt.xlabel('log2 Fold Change')
+plt.ylabel('-log10(p-value)')
+plt.title('Volcano Plot')
+
+#Add a horizontal line for p-value threshold (e.g., 0.05)
+plt.axhline(y=-np.log10(0.05), color='red', linestyle='--', alpha=0.5)
+# Add vertical lines for log2FoldChange thresholds
+plt.axvline(x=1, color='blue', linestyle='--', alpha=0.5)
+plt.axvline(x=-1, color='blue', linestyle='--', alpha=0.5)  # Changed empty string to 'blue'
+
+# Add gene labels for significant genes
+for idx, row in new_df[new_df['Significant'] != 'Not Significant'].iterrows():
+    plt.annotate(row.name, xy=(row['log2FoldChange'], row['-log10(pvalue)']),xytext=(5, 5), textcoords='offset points',
+                fontsize=8)
+
+plt.show()
+
+#Print summary of significant genes
+print("\nSummary of differential expression:")
+print(new_df['Significant'].value_counts())
+# Print detailed information about differentially expressed genes
+print("\n=== UPREGULATED GENES ===")
+upregulated = new_df[new_df['Significant'] == 'Upregulated'].sort_values('pvalue')
+print("\nNumber of upregulated genes:", len(upregulated))
+print("\nTop upregulated genes (sorted by p-value):")
+print(upregulated[['log2FoldChange', 'pvalue']].head())
+
+print("\n=== DOWNREGULATED GENES ===")
+downregulated = new_df[new_df['Significant'] == 'Downregulated'].sort_values('pvalue')
+print("\nNumber of downregulated genes:", len(downregulated))
+print("\nTop downregulated genes (sorted by p-value):")
+print(downregulated[['log2FoldChange', 'pvalue']].head())
+
+
+##OUTPUT -
+Summary of differential expression:
+Significant
+Not Significant    16296
+Downregulated         91
+Upregulated           19
+Name: count, dtype: int64
+
+=== UPREGULATED GENES ===
+
+Number of upregulated genes: 19
+
+Top upregulated genes (sorted by p-value):
+    log2FoldChange    pvalue
+6            1.534  0.000003
+11           1.181  0.000011
+15           1.050  0.000015
+16           1.137  0.000022
+21           1.540  0.000056
+
+=== DOWNREGULATED GENES ===
+
+Number of downregulated genes: 91
+
+Top downregulated genes (sorted by p-value):
+    log2FoldChange        pvalue
+2           -2.129  5.655000e-08
+8           -1.425  2.390000e-06
+9           -1.052  3.213000e-06
+4           -1.687  3.735000e-06
+10          -1.658  8.973000e-06
+
+###Function of Top 5 Upregulated Genes Using Gene Cards,
+#1. EMILIN2: May be responsible for anchoring smooth muscle cells to elastic fibers, and may be involved not only in the formation of the elastic fiber, but also in the processes that regulate vessel assembly.
+Has cell adhesive capacity. 
+#2. POU3F4 : Probable transcription factor which exert its primary action widely during early neural development and in a very limited set of neurons in the mature brain. Expressed in Rathke pouch,at an early stage of pituitary development and in a subset of adult anterior pituitary cells that express POMC,involved in mesenchymal-mesenchymal signaling for the development of inner ear 
+#3. LOC285954: No function on Gene Cards
+#4. VEPH1: Interacts with TGF-beta receptor type-1 (TGFBR1) and inhibits dissociation of activated SMAD2 from TGFBR1, impeding its nuclear accumulation and resulting in impaired TGF-beta signaling.
+May also affect FOXO, Hippo and Wnt signaling.
+#5. DTHD1: May be involved in retinal eye disease and hepatocellular carcinoma
+
+###Function of the Top 5 Downregulated Genes Using Gene Card
+#1. TBX5: DNA-binding protein that regulates the transcription of several genes and is involved in heart development and limb pattern formation. Murine T-box gene Tbx5 (T,brachyury)homolog,putative transcription factor,likely expressed in developing limb bud and heart in mice,involved in developmental regulation,pairing with TBX3,homolog to Drosophila optomotor-blind gene (omb),involved in optic lobe and wing development
+#2. LAMA2: Binding to cells via a high affinity receptor, laminin is thought to mediate the attachment, migration and organization of cells into tissues during embryonic development by interacting with other extracellular matrix components
+#3. CAV2: May act as a scaffolding protein within caveolar membranes.
+Interacts directly with G-protein alpha subunits and can functionally regulate their activity.
+Acts as an accessory protein in conjunction with CAV1 in targeting to lipid rafts and driving caveolae formation.
+The Ser-36 phosphorylated form has a role in modulating mitosis in endothelial cells.
+Positive regulator of cellular mitogenesis of the MAPK signaling pathway.
+Required for the insulin-stimulated nuclear translocation and activation of MAPK1 and STAT3, and the subsequent regulation of cell cycle progression
+#4. IFITM1: IFN-induced antiviral protein which inhibits the entry of viruses to the host cell cytoplasm, permitting endocytosis, but preventing subsequent viral fusion and release of viral contents into the cytosol.
+Active against multiple viruses, including influenza A virus, SARS coronaviruses (SARS-CoV and SARS-CoV-2), Marburg virus (MARV), Ebola virus (EBOV), Dengue virus (DNV), West Nile virus (WNV), human immunodeficiency virus type 1 (HIV-1) and hepatitis C virus (HCV)
+Can inhibit: influenza virus hemagglutinin protein-mediated viral entry, MARV and EBOV GP1,2-mediated viral entry and SARS-CoV and SARS-CoV-2 S protein-mediated viral entry.
+Also implicated in cell adhesion and control of cell growth and migration.
+#5. TNN: Expressed in most mammary tumors, may facilitate tumorigenesis by supporting the migratory behavior of breast cancer cells.
+In tumors, stimulates angiogenesis by elongation, migration and sprouting of endothelial cells.
