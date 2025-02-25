@@ -20,5 +20,47 @@ features = ["BMI", "Weight", "Weight_pounds", "Age"]
 for feature in features:
     sns.histplot(df[feature], bins=30, kde=True).set(title=f"Distribution of {feature}", xlabel=feature, ylabel="Frequency")
 
-# Mean 60-second pulse rate
+#Mean 60second pulse rate for all participants
+mean_pulse = df["Pulse"].mean()
+print(f'The mean 60secs pulse rate for all participants: {mean_pulse}')
+###OUTPUT - The mean 60secs pulse rate for all participants: 63.06
+
+#Range of values for diastolic blood pressure in all participants
+min_dbp = df["BPDia"].min() #finds the minimum diastolic BP
+max_dbp = df["BPDia"].max() #finds the maximum diastolic BP
+print(f"The range of values for Diastolic BP in all participants:{min_dbp}-{max_dbp}")
+###OUTPUT - The range of values for Diastolic BP in all participants:0-116
+
+#Variance and standard deviation for income among all participants
+income_variance = df["Income"].var()
+income_std = df["Income"].std()
+print(f"The variance for income among all participants: {income_variance}")
+print(f"The standard deviation for income among all participants: {income_std}")
+###OUTPUT - The variance for income among all participants: 1264147753.5507102
+            The standard deviation for income among all participants: 35554.85555519401
+
+#Visualize the relationship between weight and height. Color the points by gender, diabetes, smoking status
+categories = ["Gender", "Diabetes", "SmokingStatus"]
+for category in categories:
+    sns.scatterplot(data=df, x="Height", y="Weight", hue=category).set(title=f"Weight vs Height colored by {category}")
+
+#Conduct t-test between the following variables and make conclusions on the relationship between them based on P-Value
+#-Age and Gender
+#-BMI and Diabetes
+#-Alcohol Year and Relationship Status
+age_gender_ttest = stats.ttest_ind(df[df['Gender'] == 'Male']['Age'], df[df['Gender'] == 'Female']['Age'])
+bmi_diabetes_ttest = stats.ttest_ind(df[df['Diabetes'] == 'Yes']['BMI'], df[df['Diabetes'] == 'No']['BMI'])
+alcohol_relationship_ttest = stats.ttest_ind(df[df['RelationshipStatus'] == 'Married']['AlcoholYear'], df[df['RelationshipStatus'] == 'Single']['AlcoholYear'])
+print("T-Test Results:")
+print(f"Age and Gender: P-Value = {age_gender_ttest.pvalue}")
+print(f"BMI and Diabetes: P-Value = {bmi_diabetes_ttest.pvalue}")
+print(f"Alcohol Year and Relationship Status: P-Value = {alcohol_relationship_ttest.pvalue}")
+
+###OUTPUT -T-Test Results:
+Age and Gender: P-Value = nan
+BMI and Diabetes: P-Value = 3.574381575402146e-51
+Alcohol Year and Relationship Status: P-Value = nan
+
+
+
 
