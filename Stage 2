@@ -1,0 +1,24 @@
+Task 2.7 Public Health
+import seaborn as sns
+import pandas as pd
+import scipy.stats as stats
+
+# Load dataset
+df = pd.read_csv("https://raw.githubusercontent.com/HackBio-Internship/public_datasets/main/R/nhanes.csv")
+
+# Handle missing values
+df.fillna(0, inplace=True)  # Replace NA with 0
+
+# Calculate Weight in pounds
+df["Weight_pounds"] = df["Weight"] * 2.2
+
+# Set figure size
+sns.set(rc={'figure.figsize':(12, 8)})
+
+# Create histograms
+features = ["BMI", "Weight", "Weight_pounds", "Age"]
+for feature in features:
+    sns.histplot(df[feature], bins=30, kde=True).set(title=f"Distribution of {feature}", xlabel=feature, ylabel="Frequency")
+
+# Mean 60-second pulse rate
+
